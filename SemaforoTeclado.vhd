@@ -1,0 +1,193 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity semaforoTeclado is
+    port(
+        clk: in std_logic;
+        reset: in std_logic;
+		  enable: in std_logic;
+		  tempoVerdeP: in std_logic_vector(6 downto 0);
+		  tempoVerdeS: in std_logic_vector(6 downto 0);
+        LEDverde: out std_logic_vector(11 downto 0);
+        LEDvermelho: out std_logic_vector(11 downto 0);
+        LEDamarelo: out std_logic_vector(5 downto 0)
+    );
+end entity semaforoTeclado;
+
+architecture comportamento of semaforoTeclado is
+    type estados is (s0, s1, s2, s3, s4, s5, s6, s7);
+    signal estadoPresente, estadoProximo: estados;
+    signal count: unsigned(32 downto 0);
+    signal lights: std_logic_vector(29 downto 0);
+	 signal temp_lights: std_logic_vector(29 downto 0);
+	 
+	constant YELLOW_TIME : natural := 5;   -- Tempo em segundos para o estado amarelo
+	constant delay : natural := 5;
+
+
+begin
+
+    sequencial: process(clk, reset)
+    begin
+        if reset = '1' or enable = '0' then
+            estadoPresente <= s0;
+				count <= (others => '0');       -- Reinicia o contador
+				
+        elsif rising_edge(clk) then
+            estadoPresente <= estadoProximo;
+				
+				if count = (delay + YELLOW_TIME + unsigned(tempoVerdeP) + YELLOW_TIME + delay + YELLOW_TIME + unsigned(tempoVerdeS) + YELLOW_TIME) * 50_000_000 then
+					count <= (others => '0');
+				else
+					count <= count + 1;
+				
+				end if;
+        end if;
+    end process sequencial;
+
+    combinacional: process(estadoPresente, count)
+    begin
+        
+        case estadoPresente is
+            
+				when s0 =>
+                temp_lights <= "001010010010001001100101100110"; -- P1 = on, P2 = off, S1 = off, S2 = on =: INICIO DO SEMAFORO
+                
+                if count >= delay * 50_000_000 then
+                    estadoProximo <= s1;
+                else
+                    estadoProximo <= s0;
+                end if;
+                     
+            when s1 =>
+               
+				 	 temp_lights <= "001010010010100100100101100110"; -- P1 = on, P2 = off, S1 = off, S2 = off =: Amarelo na VIA SECUNDARIA S2		 
+               
+                if count >= (delay + YELLOW_TIME) * 50_000_000 then
+                    estadoProximo <= s2;
+                else
+                    estadoProximo <= s1;
+                end if;
+                     
+            when s2 =>
+				
+					 temp_lights <= "001010010001010010101001010101"; 
+					 
+                -- P1 = on, P2 = on, S1 = off, S2 = off =: VERDE NA VP2 - VERDE NA VP1
+                
+                if count >= (delay + YELLOW_TIME + unsigned(tempoVerdeP)) * 50_000_000 then
+                    estadoProximo <= s3;
+                else
+                    estadoProximo <= s2;
+                end if;
+                     
+            when s3 =>
+				
+					 temp_lights <= "100010010001010010101001010101"; 
+                -- P1 = off, PAMARELO1 = on, P2 = on, VS1 = off, VS2 = off =: AMARELO NA VP1
+                
+                if count >= (delay + YELLOW_TIME + unsigned(tempoVerdeP) + YELLOW_TIME) * 50_000_000 then
+                  
+                    estadoProximo <= s4;
+						 
+                else
+                    estadoProximo <= s3;
+                end if;
+           
+			  when s4 =>
+				
+					 temp_lights <= "010001001001010010011010011001"; 
+                -- VP1 = off,  VP2 = on VS1 = on, VS2 = off
+                
+                if count >= (delay + YELLOW_TIME + unsigned(tempoVerdeP) + YELLOW_TIME + delay) * 50_000_000 then
+                  
+                    estadoProximo <= s5;
+						 
+                else
+                    estadoProximo <= s4;
+                end if;
+				
+							
+				when s5 =>
+				
+					 temp_lights <= "010001001100010010011010011001"; 
+                -- VP1 = off,  VP2 = on VS1 = on, VS2 = off
+                
+                if count >= (delay + YELLOW_TIME + unsigned(tempoVerdeP) + YELLOW_TIME + delay + YELLOW_TIME) * 50_000_000 then
+                  
+                    estadoProximo <= s6;
+						 
+                else
+                    estadoProximo <= s5;
+                end if;
+            
+				when s6 =>
+				
+					 temp_lights <= "010001001010001001010110101010"; 
+                -- VP1 = off,  VP2 = on VS1 = on, VS2 = off
+                
+                if count >= (delay + YELLOW_TIME + unsigned(tempoVerdeP) + YELLOW_TIME + delay + YELLOW_TIME + unsigned(tempoVerdeP)) * 50_000_000 then
+                  
+                    estadoProximo <= s7;
+						 
+                else
+                    estadoProximo <= s6;
+                end if;
+				
+				when s7 =>
+				
+					 temp_lights <= "010100100010001001010110101010"; 
+                -- VP1 = off,  VP2 = off, VS1 = off, VS2 = on := estado para colocar o amarelo do VS1
+                
+                if count >= (delay + YELLOW_TIME + unsigned(tempoVerdeP) + YELLOW_TIME + delay + YELLOW_TIME + unsigned(tempoVerdeP) + YELLOW_TIME) * 50_000_000 then
+                  
+                    estadoProximo <= s0;
+						 
+                else
+                    estadoProximo <= s7;
+                end if;			
+
+            when others =>
+                --estadoProximo <= s0;
+        end case;
+        
+        -- Atribuição final ao sinal lights
+        lights <= temp_lights;
+    end process combinacional;
+
+    -- Semaforos pedestres
+    LEDverde(0) <= lights(0); 
+    LEDvermelho(0) <= lights(1); 
+    LEDverde(1) <= lights(2); 
+    LEDvermelho(1) <= lights(3); 
+    LEDverde(2) <= lights(4); 
+    LEDvermelho(2) <= lights(5); 
+    LEDverde(3) <= lights(6); 
+    LEDvermelho(3) <= lights(7); 
+    LEDverde(4) <= lights(8); 
+    LEDvermelho(4) <= lights(9); 
+    LEDverde(5) <= lights(10); 
+    LEDvermelho(5) <= lights(11); 
+
+    -- Semaforos veículos
+    LEDverde(6) <= lights(12); 
+    LEDvermelho(6) <= lights(13); 
+    LEDamarelo(0) <= lights(14);
+    LEDverde(7) <= lights(15); 
+    LEDvermelho(7) <= lights(16); 
+    LEDamarelo(1) <= lights(17);
+    LEDverde(8) <= lights(18); 
+    LEDvermelho(8) <= lights(19); 
+    LEDamarelo(2) <= lights(20);
+    LEDverde(9) <= lights(21); 
+    LEDvermelho(9) <= lights(22); 
+    LEDamarelo(3) <= lights(23);
+    LEDverde(10) <= lights(24); 
+    LEDvermelho(10) <= lights(25); 
+    LEDamarelo(4) <= lights(26);
+    LEDverde(11) <= lights(27); 
+    LEDvermelho(11) <= lights(28); 
+    LEDamarelo(5) <= lights(29);
+
+end architecture comportamento;

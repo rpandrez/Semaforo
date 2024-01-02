@@ -1,0 +1,31 @@
+-- Entidade do muxLeds
+entity muxLeds is
+    port (
+        autoSemaforo : in std_logic_vector(29 downto 0); -- Entrada 0 de 30 bits
+        vpAberta : in std_logic_vector(29 downto 0); -- Entrada 1 de 30 bits
+        vsAberta : in std_logic_vector(29 downto 0); -- Entrada 2 de 30 bits
+        configSemaforo : in std_logic_vector(29 downto 0); -- Entrada 3 de 30 bits
+        selector : in std_logic_vector(1 downto 0); -- Seletor de 2 bits
+        saidaLeds : out std_logic_vector(29 downto 0) -- Saída de 30 bits
+    );
+end entity muxLeds;
+
+-- Arquitetura do muxLeds
+architecture comportamento of muxLeds is
+begin
+    process (autoSemaforo, vpAberta, vsAberta, configSemaforo, selector)
+    begin
+        case selector is
+            when "00" =>
+                saidaLeds <= autoSemaforo;
+            when "01" =>
+                saidaLeds <= vpAberta;
+            when "10" =>
+                saidaLeds <= vsAberta;
+            when "11" =>
+                saidaLeds <= configSemaforo;
+            when others =>
+                saidaLeds <= (others => '0'); -- Caso de seleção inválida
+        end case;
+    end process;
+end architecture comportamento;

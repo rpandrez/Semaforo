@@ -1,0 +1,22 @@
+-- Definição da entidade
+entity dig2int is
+    port (
+        centena : in  std_logic_vector(3 downto 0);
+        dezena  : in  std_logic_vector(3 downto 0);
+        unidade : in  std_logic_vector(3 downto 0);
+        soma    : out std_logic_vector(9 downto 0)
+    );
+end dig2int;
+
+-- Definição da arquitetura
+architecture comportamento of dig2int is
+    signal centena_int : integer range 0 to 9;
+    signal dezena_int  : integer range 0 to 9;
+    signal unidade_int : integer range 0 to 9;
+begin
+    centena_int <= to_integer(unsigned(centena));
+    dezena_int  <= to_integer(unsigned(dezena));
+    unidade_int <= to_integer(unsigned(unidade));
+
+    soma <= std_logic_vector(to_unsigned(centena_int * 100 + dezena_int * 10 + unidade_int, 10));
+end comportamento;

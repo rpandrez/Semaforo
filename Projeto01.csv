@@ -1,0 +1,75 @@
+# Copyright (C) 2017  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel MegaCore Function License Agreement, or other 
+# applicable license agreement, including, without limitation, 
+# that your use is for the sole purpose of programming logic 
+# devices manufactured by Intel and sold by Intel or its 
+# authorized distributors.  Please refer to the applicable 
+# agreement for further details.
+
+# Quartus Prime Version 17.0.0 Build 595 04/25/2017 SJ Lite Edition
+# File: C:\intelFPGA_lite\17.0\DESENVOLVIMENTO\INTEGRADOS\TecladoMapFF\Projeto01\Projeto01.csv
+# Generated on: Fri Jun 23 16:02:04 2023
+
+# Note: The column header names should not be changed if you wish to import this .csv file into the Quartus Prime software.
+
+To,Direction,Location,I/O Bank,VREF Group,Fitter Location,I/O Standard,Reserved,Current Strength,Slew Rate,Differential Pair,Strict Preservation
+clk,Input,PIN_Y2,2,B2_N0,PIN_Y2,2.5 V,,,,,
+clk24,Output,PIN_E21,7,B7_N0,PIN_E21,2.5 V,,,,,
+COl[2],Input,PIN_J10,8,B8_N1,PIN_J10,2.5 V,,,,,
+COl[1],Input,PIN_J14,8,B8_N0,PIN_J14,2.5 V,,,,,
+COl[0],Input,PIN_H13,8,B8_N0,PIN_H13,2.5 V,,,,,
+dav,Output,PIN_F17,7,B7_N2,PIN_F17,2.5 V,,,,,
+DB[7],Output,PIN_M5,1,B1_N2,PIN_M5,2.5 V,,,,,
+DB[6],Output,PIN_M3,1,B1_N1,PIN_M3,2.5 V,,,,,
+DB[5],Output,PIN_K2,1,B1_N1,PIN_K2,2.5 V,,,,,
+DB[4],Output,PIN_K1,1,B1_N1,PIN_K1,2.5 V,,,,,
+DB[3],Output,PIN_K7,1,B1_N1,PIN_K7,2.5 V,,,,,
+DB[2],Output,PIN_L2,1,B1_N2,PIN_L2,2.5 V,,,,,
+DB[1],Output,PIN_L1,1,B1_N2,PIN_L1,2.5 V,,,,,
+DB[0],Output,PIN_L3,1,B1_N1,PIN_L3,2.5 V,,,,,
+EN,Bidir,PIN_L4,1,B1_N1,PIN_L4,2.5 V,,,,,
+LEDamarelo[5],Output,PIN_AB21,4,B4_N0,PIN_AB21,2.5 V,,,,,
+LEDamarelo[4],Output,PIN_AD15,4,B4_N2,PIN_AD15,2.5 V,,,,,
+LEDamarelo[3],Output,PIN_AF24,4,B4_N1,PIN_AF24,2.5 V,,,,,
+LEDamarelo[2],Output,PIN_AF22,4,B4_N0,PIN_AF22,2.5 V,,,,,
+LEDamarelo[1],Output,PIN_AG22,4,B4_N1,PIN_AG22,2.5 V,,,,,
+LEDamarelo[0],Output,PIN_AF20,4,B4_N1,PIN_AF20,2.5 V,,,,,
+LEDverde[11],Output,PIN_AC21,4,B4_N0,PIN_AC21,2.5 V,,,,,
+LEDverde[10],Output,PIN_AC19,4,B4_N0,PIN_AC19,2.5 V,,,,,
+LEDverde[9],Output,PIN_AF25,4,B4_N1,PIN_AF25,2.5 V,,,,,
+LEDverde[8],Output,PIN_AG25,4,B4_N1,PIN_AG25,2.5 V,,,,,
+LEDverde[7],Output,PIN_AH22,4,B4_N1,PIN_AH22,2.5 V,,,,,
+LEDverde[6],Output,PIN_AH23,4,B4_N1,PIN_AH23,2.5 V,,,,,
+LEDverde[5],Output,PIN_Y17,4,B4_N0,PIN_Y17,2.5 V,,,,,
+LEDverde[4],Output,PIN_AE21,4,B4_N1,PIN_AE21,2.5 V,,,,,
+LEDverde[3],Output,PIN_AE16,4,B4_N2,PIN_AE16,2.5 V,,,,,
+LEDverde[2],Output,PIN_AF21,4,B4_N1,PIN_AF21,2.5 V,,,,,
+LEDverde[1],Output,PIN_AF16,4,B4_N2,PIN_AF16,2.5 V,,,,,
+LEDverde[0],Output,PIN_AD25,4,B4_N0,PIN_AD25,2.5 V,,,,,
+LEDvermelho[11],Output,PIN_AB22,4,B4_N0,PIN_AB22,2.5 V,,,,,
+LEDvermelho[10],Output,PIN_AD21,4,B4_N0,PIN_AD21,2.5 V,,,,,
+LEDvermelho[9],Output,PIN_AD19,4,B4_N0,PIN_AD19,2.5 V,,,,,
+LEDvermelho[8],Output,PIN_AE22,4,B4_N0,PIN_AE22,2.5 V,,,,,
+LEDvermelho[7],Output,PIN_H25,6,B6_N1,PIN_H25,2.5 V,,,,,
+LEDvermelho[6],Output,PIN_AE20,4,B4_N1,PIN_AE20,2.5 V,,,,,
+LEDvermelho[5],Output,PIN_AC15,4,B4_N2,PIN_AC15,2.5 V,,,,,
+LEDvermelho[4],Output,PIN_AF15,4,B4_N2,PIN_AF15,2.5 V,,,,,
+LEDvermelho[3],Output,PIN_Y16,4,B4_N0,PIN_Y16,2.5 V,,,,,
+LEDvermelho[2],Output,PIN_AC22,4,B4_N0,PIN_AC22,2.5 V,,,,,
+LEDvermelho[1],Output,PIN_AE15,4,B4_N2,PIN_AE15,2.5 V,,,,,
+LEDvermelho[0],Output,PIN_AD22,4,B4_N0,PIN_AD22,2.5 V,,,,,
+NSbutton,Input,PIN_M23,6,B6_N2,PIN_M23,2.5 V,,,,,
+reset,Input,PIN_Y23,5,B5_N2,PIN_Y23,2.5 V,,,,,
+row[3],Output,PIN_H14,8,B8_N0,PIN_H14,2.5 V,,,,,
+row[2],Output,PIN_F14,8,B8_N0,PIN_F14,2.5 V,,,,,
+row[1],Output,PIN_E10,8,B8_N1,PIN_E10,2.5 V,,,,,
+row[0],Output,PIN_D9,8,B8_N1,PIN_D9,2.5 V,,,,,
+RS,Output,PIN_M2,1,B1_N2,PIN_M2,2.5 V,,,,,
+RW,Output,PIN_M1,1,B1_N2,PIN_M1,2.5 V,,,,,

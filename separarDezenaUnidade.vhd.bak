@@ -1,0 +1,19 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;  -- Para utilizar o tipo unsigned
+
+entity separarDezenaUnidade is
+    port (
+        number : in unsigned(7 downto 0);  -- Número de entrada
+        dezena : out unsigned(3 downto 0);  -- Saída para a dezena
+        unidade : out unsigned(3 downto 0)  -- Saída para a unidade
+    );
+end entity;
+
+architecture Comportamento of separarDezenaUnidade is
+begin
+    dezena <= number/10;  -- Realiza a divisão aritmética por 10 para obter a dezena
+    unidade <= number mod 10;  -- Obtém o resto da divisão por 10 para obter a unidade
+
+    -- ...
+end architecture;
